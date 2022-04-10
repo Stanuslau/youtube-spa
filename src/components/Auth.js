@@ -1,8 +1,7 @@
 import { Row, Col, Form, Input, Button, Checkbox } from "antd";
-import { Layout } from "antd";
 
-function Login() {
-  const { Header, Footer, Sider, Content } = Layout;
+function Auth() {
+
   const onFinish = (values) => {
     console.log("Success:", values);
   };
@@ -12,13 +11,11 @@ function Login() {
   };
 
   return (
-    // <Row type="flex" justify="center" align="center">
-
     <Row
       type="flex"
       justify="center"
       align="middle"
-      style={{ minHeight: "100vh" }}
+      style={{ minHeight: "100vh" }} // make sure that row takes all the page size
     >
       <Col span={4}>
         <Form
@@ -89,4 +86,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Auth;

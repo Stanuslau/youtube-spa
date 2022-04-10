@@ -1,10 +1,19 @@
-import Login from "./components/Login";
-import 'antd/dist/antd.css';
+import YoutubeSPA from "./components/YoutubeSPA";
+import Auth from "./components/Auth";
+import { useState } from "react";
+import "antd/dist/antd.css";
 
 function App() {
+  const [token, setToken] = useState('');
+
+  if (!token) {
+    console.log("Please authorize!");
+    return <Auth setToken={setToken} />;
+  }
+
   return (
     <div className="App">
-      <Login />
+      <YoutubeSPA />
     </div>
   );
 }
