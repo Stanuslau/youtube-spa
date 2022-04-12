@@ -1,9 +1,19 @@
 import { Row, Col, Form, Input, Button, Checkbox } from "antd";
+import data from "./data";
 
-function Auth() {
-
+function Auth(props) {
   const onFinish = (values) => {
-    console.log("Success:", values);
+    if (
+      data.find(
+        (item) => values.username === item.name && values.password === item.pass
+      )
+    ) {
+      console.log("Command to generate token!");
+      localStorage.setItem("storedToken", "srt_my_super_token");
+      props.setToken("srt_my_super_token");
+    } else {
+      console.log("Enter correct Username and Password!");
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -26,9 +36,9 @@ function Auth() {
           wrapperCol={{
             span: 16,
           }}
-          initialValues={{
-            remember: true,
-          }}
+          // initialValues={{
+          //   remember: true,
+          // }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
@@ -58,7 +68,7 @@ function Auth() {
           >
             <Input.Password />
           </Form.Item>
-
+          {/* 
           <Form.Item
             name="remember"
             valuePropName="checked"
@@ -68,7 +78,7 @@ function Auth() {
             }}
           >
             <Checkbox>Remember me</Checkbox>
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item
             wrapperCol={{
