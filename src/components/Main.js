@@ -7,42 +7,54 @@ const { Search } = Input;
 
 function Main() {
   const [searchValue, setSearchValue] = useState("");
+  const [videosArrayToRender, setVideosArrayToRender] = useState([]);
 
   function onChangeFunc(event) {
     setSearchValue(event.target.value);
   }
 
+  async function getVideosList(value) {
+    let data = await axios
+      .get(
+        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=12&q=${value}&key=AIzaSyAu1EVzXZ7gy-eoV0k3BLmNdnc2vK3xTPg`
+      )
+      .then((res) => {
+        return res.data.items;
+      });
+    return data;
+  }
+
+  async function getVideosParameters(videosID) {
+    let videoParameters = await axios
+      .get(
+        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videosID}&key=AIzaSyAu1EVzXZ7gy-eoV0k3BLmNdnc2vK3xTPg`
+      )
+      .then((res) => {
+        return res.data.items;
+      });
+    console.log("videoParameters = ", videoParameters);
+    let videos = videoParameters.map((item) => {
+      return {
+        id: item.id,
+        title: item.snippet.title,
+        channelTitle: item.snippet.channelTitle,
+        viewCount: item.statistics.viewCount,
+      };
+    });
+    setVideosArrayToRender(videos);
+  }
+
   const onSearch = async (value) => {
     //q=surfing by default for troubleshooting
-
-    async function getVideosList() {
-      let data = await axios
-        .get(
-          `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=12&q=${value}&key=AIzaSyAu1EVzXZ7gy-eoV0k3BLmNdnc2vK3xTPg`
-        )
-        .then((res) => {
-          return res.data.items;
-        });
-      return data;
-    }
-
-    async function getOneVideoStatistic(videoID) {
-      let videoStatistic = await axios
-        .get(
-          `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2Cstatistics&id=${videoID}&key=AIzaSyAu1EVzXZ7gy-eoV0k3BLmNdnc2vK3xTPg`
-        )
-        .then((res) => {
-          console.log(res);
-        });
-    }
-    let videosArray = await getVideosList().then((res) => res);
-    videosArray.map((item) => {
-      console.log("item = ", item);
-      console.log("item.id.videoId = ", item.id.videoId);
-      console.log("item.snippet.title = ", item.snippet.title);
-      console.log("----------");
+    let videosString = "";
+    let videosData = await getVideosList(value).then((res) => res);
+    videosData.map((item) => {
+      videosString += item.id.videoId + "%2C";
     });
+    getVideosParameters(videosString);
   };
+
+  console.log("videosArrayToRender = ", videosArrayToRender);
 
   return (
     <div>
