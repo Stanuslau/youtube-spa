@@ -51,7 +51,7 @@ function Main() {
     videosData.map((item) => {
       videosString += item.id.videoId + "%2C";
     });
-    await getVideosParameters(videosString);
+    getVideosParameters(videosString);
   };
 
   return (

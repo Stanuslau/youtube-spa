@@ -1,60 +1,46 @@
 import { useState } from "react";
-import { Card, Avatar } from "antd";
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { Card, Row, Col } from "antd";
+import { AppstoreOutlined, MenuOutlined } from "@ant-design/icons";
 
 const { Meta } = Card;
 
 const VideoCards = (props) => {
   // почему не работает const [videos, setVideos] = useState(props.videos);
-  let videos = props.videos;
-  let arrayToRender = videos.map((item, index) => {
+  const [styleSpan, setStyleSpan] = useState(6);
+  const videos = props.videos;
+  const arrayToRender = videos.map((item, index) => {
     return (
-      <Card
-        key={index}
-        style={{ width: 300 }}
-        cover={
-          <img
-            alt="example"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          />
-        }
-      >
-        <Meta title={item.title} description={item.channelTitle} />
-        <Meta description={item.viewCount + " просмотров"} />
-      </Card>
+      <Col key={index} span={styleSpan}>
+        <Card
+          style={{ width: 300 }}
+          cover={
+            <img
+              alt="example"
+              src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+            />
+          }
+        >
+          <Meta title={item.title} description={item.channelTitle} />
+          <Meta description={item.viewCount + " просмотров"} />
+        </Card>
+      </Col>
     );
   });
 
-  console.log("arrayToRender = ", arrayToRender);
+  const viewList = () => {
+    setStyleSpan(24);
+  };
+  const viewCards = () => {
+    setStyleSpan(6);
+  };
 
-  return arrayToRender;
+  return (
+    <div>
+      <MenuOutlined onClick={viewList} />
+      <AppstoreOutlined onClick={viewCards} />
 
-  // return (
-  //   <Card
-  //     style={{ width: 300 }}
-  //     cover={
-  //       <img
-  //         alt="example"
-  //         src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-  //       />
-  //     }
-  //     // actions={[
-  //     //   <SettingOutlined key="setting" />,
-  //     //   <EditOutlined key="edit" />,
-  //     //   <EllipsisOutlined key="ellipsis" />,
-  //     // ]}
-  //   >
-  //     <Meta
-  //       // avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-  //       title="Card title"
-  //       description="Hello"
-  //     />
-  //     <Meta description="Hello" />
-  //   </Card>
-  // );
+      <Row>{arrayToRender}</Row>
+    </div>
+  );
 };
 export default VideoCards;
