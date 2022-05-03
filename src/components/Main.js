@@ -51,10 +51,8 @@ function Main() {
     videosData.map((item) => {
       videosString += item.id.videoId + "%2C";
     });
-    getVideosParameters(videosString);
+    await getVideosParameters(videosString);
   };
-
-  console.log("videosArrayToRender = ", videosArrayToRender);
 
   return (
     <div>
@@ -68,7 +66,7 @@ function Main() {
         onChange={onChangeFunc}
         onSearch={onSearch}
       />
-      <VideoCards />
+      <VideoCards videos={videosArrayToRender} />
     </div>
   );
 }
