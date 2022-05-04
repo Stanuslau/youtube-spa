@@ -19,8 +19,10 @@ function Main() {
         `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=12&q=${value}&key=AIzaSyAu1EVzXZ7gy-eoV0k3BLmNdnc2vK3xTPg`
       )
       .then((res) => {
+        console.log("res = ", res);
         return res.data.items;
       });
+
     return data;
   }
 
@@ -66,7 +68,7 @@ function Main() {
         onChange={onChangeFunc}
         onSearch={onSearch}
       />
-      <VideoCards videos={videosArrayToRender} />
+      <VideoCards videos={videosArrayToRender} searchValue={searchValue} />
     </div>
   );
 }

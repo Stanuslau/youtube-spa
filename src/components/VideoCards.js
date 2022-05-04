@@ -7,24 +7,56 @@ const { Meta } = Card;
 const VideoCards = (props) => {
   // почему не работает const [videos, setVideos] = useState(props.videos);
   const [styleSpan, setStyleSpan] = useState(6);
+  const searchValue = props.searchValue;
   const videos = props.videos;
   const arrayToRender = videos.map((item, index) => {
-    return (
-      <Col key={index} span={styleSpan}>
-        <Card
-          style={{ width: 300 }}
-          cover={
-            <img
-              alt="example"
-              src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+    if (styleSpan == 6) {
+      return (
+        <Col key={index} span={styleSpan} style={{ marginBottom: "5px" }}>
+          <Card
+            style={{ width: 300 }}
+            cover={
+              <img
+                alt="example"
+                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+              />
+            }
+          >
+            <Meta title={item.title} description={item.channelTitle} />
+            <Meta
+              description={
+                item.viewCount / 1000 < 1
+                  ? item.viewCount + " просмотров"
+                  : Math.floor(item.viewCount / 1000) + " тыс. просмотров"
+              }
             />
-          }
-        >
-          <Meta title={item.title} description={item.channelTitle} />
-          <Meta description={item.viewCount + " просмотров"} />
-        </Card>
-      </Col>
-    );
+          </Card>
+        </Col>
+      );
+    } else if (styleSpan == 24) {
+      return (
+        <Col key={index} span={styleSpan} style={{ marginBottom: "5px" }}>
+          <Card
+            style={{ width: 300 }}
+            cover={
+              <img
+                alt="example"
+                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+              />
+            }
+          >
+            <Meta title={item.title} description={item.channelTitle} />
+            <Meta
+              description={
+                item.viewCount / 1000 < 1
+                  ? item.viewCount + " просмотров"
+                  : Math.floor(item.viewCount / 1000) + " тыс. просмотров"
+              }
+            />
+          </Card>
+        </Col>
+      );
+    }
   });
 
   const viewList = () => {
@@ -36,6 +68,7 @@ const VideoCards = (props) => {
 
   return (
     <div>
+      <div>Видео по запросу {searchValue}</div>
       <MenuOutlined onClick={viewList} />
       <AppstoreOutlined onClick={viewCards} />
 
