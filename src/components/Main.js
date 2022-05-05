@@ -57,7 +57,7 @@ function Main() {
   };
 
   return (
-    <div>
+    <div style={{ margin: "0 auto", maxWidth:"1200px" }}>
       <h1>Поиск видео</h1>
       <Search
         placeholder="input search text"

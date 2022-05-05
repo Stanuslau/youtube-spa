@@ -12,9 +12,9 @@ const VideoCards = (props) => {
   const arrayToRender = videos.map((item, index) => {
     if (styleSpan == 6) {
       return (
-        <Col key={index} span={styleSpan} style={{ marginBottom: "5px" }}>
+        <Col key={index} span={styleSpan}>
           <Card
-            style={{ width: 300 }}
+            style={{ width: 295, margin: "10px auto" }}
             cover={
               <img
                 alt="example"
@@ -35,9 +35,9 @@ const VideoCards = (props) => {
       );
     } else if (styleSpan == 24) {
       return (
-        <Col key={index} span={styleSpan} style={{ marginBottom: "5px" }}>
+        <Col key={index} span={styleSpan} style={{ marginBottom: "30px" }}>
           <Card
-            style={{ width: 300 }}
+            style={{ width: 275 }}
             cover={
               <img
                 alt="example"
