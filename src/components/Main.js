@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Input } from "antd";
 import axios from "axios";
 import VideoCards from "./VideoCards";
+import Menu from "./Menu";
 
 const { Search } = Input;
 
 function Main() {
   const [searchValue, setSearchValue] = useState("");
   const [videosArrayToRender, setVideosArrayToRender] = useState([]);
+  const [favouriteRequests, setFavouriteRequest] = useState([]);
 
   function onChangeFunc(event) {
     setSearchValue(event.target.value);
@@ -57,8 +59,8 @@ function Main() {
   };
 
   return (
-    <div style={{ margin: "0 auto", maxWidth:"1200px" }}>
-      <h1>Поиск видео</h1>
+    <div style={{ margin: "0 auto", maxWidth: "1200px" }}>
+      <Menu />
       <Search
         placeholder="input search text"
         allowClear

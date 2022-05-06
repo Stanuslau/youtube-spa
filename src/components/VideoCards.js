@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, Row, Col } from "antd";
+import { Card, Row, Col, Button } from "antd";
 import { AppstoreOutlined, MenuOutlined } from "@ant-design/icons";
 
 const { Meta } = Card;
@@ -59,6 +59,9 @@ const VideoCards = (props) => {
     }
   });
 
+  const addToFavourites = () => {
+    console.log("Add to favourites");
+  };
   const viewList = () => {
     setStyleSpan(24);
   };
@@ -68,7 +71,11 @@ const VideoCards = (props) => {
 
   return (
     <div>
-      <div>Видео по запросу {searchValue}</div>
+      <div>
+        <div>Видео по запросу "{searchValue}"</div>
+        <Button onClick={addToFavourites}>Добавить в избранное</Button>
+      </div>
+
       <MenuOutlined onClick={viewList} />
       <AppstoreOutlined onClick={viewCards} />
 

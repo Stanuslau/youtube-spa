@@ -1,6 +1,13 @@
 import React from "react";
+import Menu from "./Menu";
 
-function Favourites() {
-  return <div> Favourites </div>;
+function Favourites(props) {
+
+  return (
+    <div>
+      <Menu />
+      <div>Избранное</div>
+    </div>
+  );
 }
 export default Favourites;
