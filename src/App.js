@@ -4,7 +4,7 @@ import { useState } from "react";
 import "antd/dist/antd.css";
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem('storedToken'));
+  const [token, setToken] = useState(localStorage.getItem("storedToken"));
   console.log("token: ", token);
 
   if (!token) {

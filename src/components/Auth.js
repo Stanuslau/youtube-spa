@@ -9,7 +9,7 @@ function Auth(props) {
       )
     ) {
       console.log("Command to generate token!");
-      localStorage.setItem("storedToken", "srt_my_super_token");
+      localStorage.setItem("storedToken", "srt_my_super_token"); // put token to local storage
       props.setToken("srt_my_super_token");
     } else {
       console.log("Enter correct Username and Password!");

@@ -9,7 +9,6 @@ const { Search } = Input;
 function Main() {
   const [searchValue, setSearchValue] = useState("");
   const [videosArrayToRender, setVideosArrayToRender] = useState([]);
-  const [favouriteRequests, setFavouriteRequest] = useState([]);
 
   function onChangeFunc(event) {
     setSearchValue(event.target.value);
@@ -36,7 +35,6 @@ function Main() {
       .then((res) => {
         return res.data.items;
       });
-    console.log("videoParameters = ", videoParameters);
     let videos = videoParameters.map((item) => {
       return {
         id: item.id,
