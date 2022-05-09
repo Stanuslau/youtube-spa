@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Card, Row, Col, Button, Modal, Form, Input } from "antd";
 import { AppstoreOutlined, MenuOutlined } from "@ant-design/icons";
+import { getConfirmLocale } from "antd/lib/modal/locale";
 
 const { Meta } = Card;
 
 const VideoCards = (props) => {
   // почему не работает const [videos, setVideos] = useState(props.videos);
-  const [form ] = Form.useForm();
+  const [counter, setCounter] = useState(0);
+  const [form] = Form.useForm();
   const [favourites, setFavourites] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [styleSpan, setStyleSpan] = useState(6);
@@ -64,22 +66,62 @@ const VideoCards = (props) => {
   });
 
   const showModal = () => {
-    form.setFieldsValue({request:searchValue}); // how to render Form.item https://github.com/ant-design/ant-design/issues/22421#issuecomment-778403975
+    form.setFieldsValue({
+      request: searchValue,
+      sortBy: "default",
+      maxAmount: 12,
+    }); // how to render Form.item https://github.com/ant-design/ant-design/issues/22421#issuecomment-778403975
     setIsModalVisible(true);
   };
 
   const handleCancel = () => {
-    // form.resetFields();
+    form.resetFields();
     setIsModalVisible(false);
-    
+  };
+
+  const getUser = () => {
+    let user = "";
+    Object.keys(localStorage).forEach((item) => {
+      if (item.startsWith("user")) {
+        console.log("user is = ", item);
+        //  let user = `user_${item}`;
+        user = item;
+      }
+    });
+    return user !== "" ? user : null;
   };
 
   const onFinish = (values) => {
-    localStorage.setItem("admin", JSON.stringify({ name: "stan", age: "27" }));
-    let x = localStorage.getItem("admin");
-    console.log("x = ", JSON.parse(x));
-    // form.resetFields();
-    // setIsModalVisible(false);
+    let admin = {
+      favourites: [
+        {
+          request: "request",
+          name: "How I want to name it",
+          sortBy: "default",
+          maxAmount: 12,
+          uniqueID: counter,
+        },
+      ],
+      token: "token_string",
+    };
+
+    // Логика добавления запросов в избранное
+    let user = getUser();
+    console.log("user = ", user);
+    // Если мы тут, то юзер уже должен быть, по этому проверка не нужна и сразу берм данные из localstorage
+    let localStorageValues = JSON.parse(localStorage.getItem(user));
+    let clone = Object.assign(values, { uniqueID: counter });
+    console.log("clone = ", clone);
+    console.log("localStorageValues = ", localStorageValues);
+    // localStorageValues.favourites.push(clone);
+
+    // console.log("Form values = ", values);
+
+    // setCounter((prevValue) => prevValue + 1);
+
+    // Логика добавления запросов в избранное
+    form.resetFields();
+    setIsModalVisible(false);
   };
 
   const viewList = () => {
@@ -98,7 +140,7 @@ const VideoCards = (props) => {
         <Modal
           title="Сохранить запрос"
           visible={isModalVisible}
-          // onOk={form.submit}
+          onOk={form.submit}
           onCancel={handleCancel}
           okText="Сохранить"
           okButtonProps={{
@@ -109,9 +151,8 @@ const VideoCards = (props) => {
           cancelText="Не Сохранять"
         >
           <Form form={form} onFinish={onFinish}>
-          {/* <Form onFinish={onFinish}> */}
             <Form.Item label="Запрос" name="request">
-              <Input defaultValue={searchValue} disabled="true" />
+              <Input disabled="true" />
             </Form.Item>
             <Form.Item
               label="Название"

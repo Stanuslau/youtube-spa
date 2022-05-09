@@ -3,14 +3,21 @@ import data from "./data";
 
 function Auth(props) {
   const onFinish = (values) => {
-    if (
-      data.find(
-        (item) => values.username === item.name && values.password === item.pass
-      )
-    ) {
-      console.log("Command to generate token!");
-      localStorage.setItem("storedToken", "srt_my_super_token"); // put token to local storage
-      props.setToken("srt_my_super_token");
+    let user = data.find(
+      (item) => values.username === item.name && values.password === item.pass
+    );
+    if (user) {
+      if (localStorage.getItem(`user_${user.name}`) === null){
+        localStorage.setItem(`user_${user.name}`, JSON.stringify({
+          favourites:[],
+          token:`${user.name}_super_token`,
+        })); 
+      } else {
+        let x = JSON.parse(localStorage.getItem(`user_${user.name}`));
+        x.token = `${user.name}_super_token`;
+        localStorage.setItem(`user_${user.name}`, JSON.stringify(x));
+      }
+      props.setToken(`${user.name}_super_token`);
     } else {
       console.log("Enter correct Username and Password!");
     }

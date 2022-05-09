@@ -1,8 +1,7 @@
-import React from "react";
+import {useState} from "react";
 import Menu from "./Menu";
 
 function Favourites(props) {
-
 
   return (
     <div>

@@ -4,10 +4,22 @@ import { useState } from "react";
 import "antd/dist/antd.css";
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem("storedToken"));
+  const [token, setToken] = useState(localStorage.getItem("user_admin"));
   console.log("token: ", token);
 
-  if (!token) {
+  function checkToken() {
+    if (localStorage.getItem("user_admin") !== null) {
+      if (JSON.parse(localStorage.getItem("user_admin")).token !== null) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  if (!checkToken()) {
     console.log("Please authorize!");
     return <Auth setToken={setToken} />;
   }
