@@ -43,7 +43,7 @@ function Main() {
         viewCount: item.statistics.viewCount,
       };
     });
-    setVideosArrayToRender(videos);
+    return videos;
   }
 
   const onSearch = async (value) => {
@@ -53,7 +53,9 @@ function Main() {
     videosData.map((item) => {
       videosString += item.id.videoId + "%2C";
     });
-    getVideosParameters(videosString);
+    let videos = await getVideosParameters(videosString).then((res) => res);
+    console.log("videos = ", videos);
+    setVideosArrayToRender(videos);
   };
 
   return (
@@ -68,7 +70,7 @@ function Main() {
         onChange={onChangeFunc}
         onSearch={onSearch}
       />
-      <VideoCards videos={videosArrayToRender} searchValue={searchValue} />
+      <VideoCards videos={videosArrayToRender} searchV={searchValue} />
     </div>
   );
 }

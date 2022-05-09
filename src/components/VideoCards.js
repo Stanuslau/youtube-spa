@@ -6,12 +6,13 @@ const { Meta } = Card;
 
 const VideoCards = (props) => {
   // почему не работает const [videos, setVideos] = useState(props.videos);
-  const [form] = Form.useForm();
+  const [form ] = Form.useForm();
   const [favourites, setFavourites] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [styleSpan, setStyleSpan] = useState(6);
-  const searchValue = props.searchValue;
+  const searchValue = props.searchV;
   const videos = props.videos;
+
   const arrayToRender = videos.map((item, index) => {
     if (styleSpan == 6) {
       return (
@@ -63,12 +64,14 @@ const VideoCards = (props) => {
   });
 
   const showModal = () => {
+    form.setFieldsValue({request:searchValue}); // how to render Form.item https://github.com/ant-design/ant-design/issues/22421#issuecomment-778403975
     setIsModalVisible(true);
   };
 
   const handleCancel = () => {
-    form.resetFields();
+    // form.resetFields();
     setIsModalVisible(false);
+    
   };
 
   const onFinish = (values) => {
@@ -87,7 +90,6 @@ const VideoCards = (props) => {
     setStyleSpan(6);
   };
 
-  console.log("VideoCards rerendered!");
   return (
     <div>
       <div>
@@ -96,19 +98,19 @@ const VideoCards = (props) => {
         <Modal
           title="Сохранить запрос"
           visible={isModalVisible}
-          onOk={form.submit}
+          // onOk={form.submit}
           onCancel={handleCancel}
           okText="Сохранить"
           okButtonProps={{
-            form: { form },
+            // form: { form },
             key: "submit",
             htmlType: "submit",
           }}
           cancelText="Не Сохранять"
         >
           <Form form={form} onFinish={onFinish}>
-            <Form.Item label="Запрос" name="request" value="123">
-              {console.log("searchValue for form = ", searchValue)}
+          {/* <Form onFinish={onFinish}> */}
+            <Form.Item label="Запрос" name="request">
               <Input defaultValue={searchValue} disabled="true" />
             </Form.Item>
             <Form.Item
