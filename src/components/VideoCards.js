@@ -8,7 +8,6 @@ const { Meta } = Card;
 const VideoCards = (props) => {
   // почему не работает const [videos, setVideos] = useState(props.videos);
   const [form] = Form.useForm();
-  const [favourites, setFavourites] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [styleSpan, setStyleSpan] = useState(6);
   const searchValue = props.searchV;

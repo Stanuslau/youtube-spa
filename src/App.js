@@ -26,7 +26,7 @@ function App() {
 
   return (
     <div className="App">
-      <YoutubeSPA />
+      <YoutubeSPA user={'user_admin'}/>
     </div>
   );
 }
