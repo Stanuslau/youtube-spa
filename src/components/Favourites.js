@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Row, Col } from "antd";
-import { Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Menu from "./Menu";
 
 function Favourites(props) {
@@ -9,6 +9,7 @@ function Favourites(props) {
     JSON.parse(localStorage.getItem(user)).favourites
   );
   let favouritesRender = favourites.map((item) => {
+    console.log("item = ", item);
     return (
       <Row key={item.uniqueID} justify="space-between">
         <Col span={4}>
@@ -22,7 +23,7 @@ function Favourites(props) {
         </Col>
         <Col span={4}>
           <Button type="primary" onClick={runRequest}>
-            Выполнить
+            <Link to={`/?q=${item.request}`}>Выполнить</Link>
           </Button>
         </Col>
       </Row>
@@ -31,7 +32,8 @@ function Favourites(props) {
 
   function runRequest(id) {
     console.log("navigate to main page");
-    return <Navigate replace={true} to="/" />;
+    // window.open("https://www.google.com");
+    return <Link to="/">Main</Link>;
   }
 
   return (
