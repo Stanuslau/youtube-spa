@@ -5,9 +5,11 @@ import Menu from "./Menu";
 
 function Favourites(props) {
   let user = props.user;
+
   const [favourites, setFavourites] = useState(
     JSON.parse(localStorage.getItem(user)).favourites
   );
+
   let favouritesRender = favourites.map((item) => {
     console.log("item = ", item);
     return (
@@ -19,10 +21,12 @@ function Favourites(props) {
           <Button type="primary">Редактировать</Button>
         </Col>
         <Col span={4}>
-          <Button type="primary">Удалить</Button>
+          <Button type="primary" onClick={() => removeFavourite(item.uniqueID)}>
+            Удалить
+          </Button>
         </Col>
         <Col span={4}>
-          <Button type="primary" onClick={runRequest}>
+          <Button type="primary">
             <Link to={`/?q=${item.request}`}>Выполнить</Link>
           </Button>
         </Col>
@@ -30,10 +34,12 @@ function Favourites(props) {
     );
   });
 
-  function runRequest(id) {
-    console.log("navigate to main page");
-    // window.open("https://www.google.com");
-    return <Link to="/">Main</Link>;
+  function removeFavourite(id) {
+    let favouritesUdate = favourites.filter((item) => item.uniqueID != id);
+    let currentStorage = JSON.parse(localStorage.getItem(user));
+    currentStorage.favourites = favouritesUdate;
+    localStorage.setItem(user, JSON.stringify(currentStorage));
+    setFavourites(favouritesUdate);
   }
 
   return (
