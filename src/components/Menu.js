@@ -1,6 +1,10 @@
 import React from "react";
 
 function Menu() {
+  function logOut(){
+    
+  }
+
   return (
     <div>
       <div>
@@ -9,7 +13,8 @@ function Menu() {
       <div>
         <a href="/favourites">Избранное</a>
       </div>
-      <div>Выйти</div>
+      <div>
+      <a href="/favourites" onClick={logOut}>Log out</a></div>
     </div>
   );
 }
