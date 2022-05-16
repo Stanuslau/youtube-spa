@@ -7,8 +7,8 @@ function YoutubeSPA(props) {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="favourites" element={<Favourites user={props.user}/>} />
+        <Route path="/youtube-spa" element={<Main />} />
+        <Route path="/youtube-spa/favourites" element={<Favourites user={props.user}/>} />
       </Routes>
     </BrowserRouter>
   );

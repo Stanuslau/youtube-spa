@@ -79,7 +79,7 @@ function Main() {
   }
 
   function clickSearch(value) {
-    navigate(`/?q=${value}`);
+    navigate(`/youtube-spa/?q=${value}`);
   }
 
   return (
