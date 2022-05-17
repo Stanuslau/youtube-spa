@@ -8,13 +8,13 @@ function Menu() {
   return (
     <div>
       <div>
-        <a href="/youtube-spa">Поиск</a>
+        <a href="/youtube-spa/">Поиск</a>
       </div>
       <div>
-        <a href="/youtube-spa/favourites">Избранное</a>
+        <a href="/youtube-spa/favourites/">Избранное</a>
       </div>
       <div>
-      <a href="/youtube-spa/favourites" onClick={logOut}>Log out</a></div>
+      <a href="/youtube-spa/favourites/" onClick={logOut}>Log out</a></div>
     </div>
   );
 }
