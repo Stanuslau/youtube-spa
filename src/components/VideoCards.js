@@ -1,7 +1,7 @@
 import { useState } from "react";
+import FavouritesForm from "./FavouritesForm";
 import { Card, Row, Col, Button, Modal, Form, Input } from "antd";
 import { AppstoreOutlined, MenuOutlined } from "@ant-design/icons";
-import { getConfirmLocale } from "antd/lib/modal/locale";
 
 const { Meta } = Card;
 
@@ -124,7 +124,13 @@ const VideoCards = (props) => {
       <div>
         <div>Видео по запросу "{searchValue}"</div>
         <Button onClick={showModal}>Добавить в избранное</Button>
-        <Modal
+        <FavouritesForm
+          form={form}
+          isModalVisible={isModalVisible}
+          handleCancel={handleCancel}
+          onFinish={onFinish}
+        />
+        {/* <Modal
           title="Сохранить запрос"
           visible={isModalVisible}
           onOk={form.submit}
@@ -154,7 +160,7 @@ const VideoCards = (props) => {
               <Input defaultValue="12" disabled="true" />
             </Form.Item>
           </Form>
-        </Modal>
+        </Modal> */}
       </div>
 
       <MenuOutlined onClick={viewList} />
