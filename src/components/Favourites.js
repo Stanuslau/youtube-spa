@@ -27,7 +27,7 @@ function Favourites(props) {
         </Col>
         <Col span={4}>
           <Button type="primary">
-            <Link to={`/?q=${item.request}`}>Выполнить</Link>
+            <Link to={`/youtube-spa/?q=${item.request}`}>Выполнить</Link>
           </Button>
         </Col>
       </Row>
