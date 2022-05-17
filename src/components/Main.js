@@ -94,7 +94,7 @@ function Main() {
         onChange={onChangeFunc}
         onSearch={clickSearch}
       />
-      <VideoCards videos={videosArrayToRender} searchV={searchValue} />
+      <VideoCards videos={videosArrayToRender} searchValue={searchValue} />
     </div>
   );
 }

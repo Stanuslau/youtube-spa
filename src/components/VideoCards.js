@@ -10,7 +10,7 @@ const VideoCards = (props) => {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [styleSpan, setStyleSpan] = useState(6);
-  const searchValue = props.searchV;
+  const searchValue = props.searchValue;
   const videos = props.videos;
 
   const arrayToRender = videos.map((item, index) => {
