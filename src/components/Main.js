@@ -3,18 +3,16 @@ import { Input, Button } from "antd";
 import axios from "axios";
 import VideoCards from "./VideoCards";
 import Menu from "./Menu";
-import {
-  useSearchParams,
-  Link,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { useSearchParams, useLocation, useNavigate } from "react-router-dom";
 
 const { Search } = Input;
 
 function Main() {
   const apikey = "AIzaSyDG99hsC82j-nENbKmzmzKriwFwHYHRQ3c";
-  const searchParams = new URLSearchParams(useLocation().search);
+  const [searchParams, setSearchParams] = useState(
+    new URLSearchParams(useLocation().search)
+  );
+  const [navigateParams, setNavigateParams] = useSearchParams({});
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
   const [videosArrayToRender, setVideosArrayToRender] = useState([]);
@@ -25,6 +23,7 @@ function Main() {
     // при изменении searchParams будет отрабатывать componentDidMount и рендерить страницу по урлу
     // Обязательно добавить второй параметр useEffect [], чтобы не было постоянного ререндера
     if (searchParams.get("q")) {
+      console.log("!!!!!useEffect!!!!!");
       let newSearchValue = searchParams.get("q");
       let maxResults = searchParams.get("maxResults")
         ? searchParams.get("maxResults")
@@ -32,7 +31,7 @@ function Main() {
       setSearchValue(newSearchValue);
       onSearch(newSearchValue, maxResults);
     }
-  }, []);
+  }, [searchParams]);
 
   function onChangeFunc(event) {
     setSearchValue(event.target.value);
@@ -82,7 +81,9 @@ function Main() {
   }
 
   function clickSearch(value) {
-    navigate(`/youtube-spa/?q=${value}`);
+    // console.log("value = ", value);
+    window.location.replace(`/youtube-spa/?q=${value}`);
+    // navigate(`/youtube-spa/?q=${value}&maxResults=2`); - stopped working after URLSearchParams
   }
 
   return (

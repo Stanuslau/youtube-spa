@@ -34,7 +34,7 @@ function FavouritesForm(props) {
           <Input placeholder="Укажите название" />
         </Form.Item>
         <Form.Item label="Сортировать по" name="sortBy">
-          <Input defaultValue="default" disabled={fieldsStatus} />
+          <Input defaultValue="TO BE DONE" disabled={true} />
         </Form.Item>
         <Form.Item label="Максимальное кол-во" name="maxAmount">
           <Input defaultValue="12" disabled={fieldsStatus} />
