@@ -13,7 +13,8 @@ import {
 const { Search } = Input;
 
 function Main() {
-  const searchParams = useLocation().search;
+  const apikey = "AIzaSyDG99hsC82j-nENbKmzmzKriwFwHYHRQ3c";
+  const searchParams = new URLSearchParams(useLocation().search);
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
   const [videosArrayToRender, setVideosArrayToRender] = useState([]);
@@ -23,22 +24,24 @@ function Main() {
     // navigate('/?q=good');
     // при изменении searchParams будет отрабатывать componentDidMount и рендерить страницу по урлу
     // Обязательно добавить второй параметр useEffect [], чтобы не было постоянного ререндера
-    if (searchParams.length > 3 && searchParams.startsWith("?q=")) {
-      console.log("We are here");
-      console.log("searchParams.slice(3) = ", searchParams.slice(3));
-      setSearchValue(searchParams.slice(3));
-      onSearch(searchParams.slice(3));
+    if (searchParams.get("q")) {
+      let newSearchValue = searchParams.get("q");
+      let maxResults = searchParams.get("maxResults")
+        ? searchParams.get("maxResults")
+        : 12;
+      setSearchValue(newSearchValue);
+      onSearch(newSearchValue, maxResults);
     }
-  }, [searchParams]);
+  }, []);
 
   function onChangeFunc(event) {
     setSearchValue(event.target.value);
   }
 
-  async function getVideosList(value) {
+  async function getVideosList(value, maxResults) {
     let data = await axios
       .get(
-        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&q=${value}&key=AIzaSyAu1EVzXZ7gy-eoV0k3BLmNdnc2vK3xTPg`
+        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=${maxResults}&q=${value}&key=${apikey}`
       )
       .then((res) => {
         console.log("res = ", res);
@@ -51,7 +54,7 @@ function Main() {
   async function getVideosParameters(videosID) {
     let videoParameters = await axios
       .get(
-        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videosID}&key=AIzaSyAu1EVzXZ7gy-eoV0k3BLmNdnc2vK3xTPg`
+        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videosID}&key=${apikey}`
       )
       .then((res) => {
         return res.data.items;
@@ -67,9 +70,9 @@ function Main() {
     return videos;
   }
 
-  async function onSearch(value) {
+  async function onSearch(value, maxResults) {
     let videosString = "";
-    let videosData = await getVideosList(value).then((res) => res);
+    let videosData = await getVideosList(value, maxResults).then((res) => res);
     videosData.map((item) => {
       videosString += item.id.videoId + "%2C";
     });
